@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #0d0f13;
+  color: #edeef0;
+}
+
+* {
+  border-color: #272a35;
+}
+
+::selection {
+  background: rgba(255, 106, 61, 0.35);
+}
+
+/* Focus rings visible everywhere, per accessibility floor */
+:focus-visible {
+  outline: 2px solid #ff6a3d;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---- Signature element: the pipeline stage tracker ---- */
+.stage-track {
+  display: flex;
+  align-items: center;
+}
+
+.stage-node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.stage-dot {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  border: 1px solid #272a35;
+  background: #171922;
+  color: #9195a3;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.stage-node.active .stage-dot {
+  border-color: #ff6a3d;
+  color: #ff6a3d;
+  box-shadow: 0 0 0 3px rgba(255, 106, 61, 0.15);
+}
+
+.stage-node.done .stage-dot {
+  background: #ff6a3d;
+  border-color: #ff6a3d;
+  color: #0d0f13;
+}
+
+.stage-node:not(:last-child)::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: #272a35;
+  margin-left: 0.6rem;
+}
+
+.stage-node.done:not(:last-child)::after {
+  background: linear-gradient(to right, #ff6a3d, #272a35);
+}
